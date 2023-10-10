@@ -95,9 +95,10 @@ public class UserInfoDao {
 		List<UserInfoObj> list = new ArrayList<UserInfoObj>();
 
 		try {
+			Class.forName("org.postgresql.Driver");
 			Connection connection = DriverManager.getConnection(jdbcUrl, username, password);
 
-			String sql = "select * from userInfo WHERE Deletion_Flag = '0';";
+			String sql = "SELECT * FROM userInfo WHERE del_flag = '0';";
 
 			Statement statement = connection.createStatement();
 			ResultSet resultSet = statement.executeQuery(sql);
@@ -105,8 +106,7 @@ public class UserInfoDao {
 			// 6. 处理结果集
 			while (resultSet.next()) {
 				String email = resultSet.getString("email");
-				String userId = resultSet.getString("userId");
-				System.out.println(886);
+				String userId = resultSet.getString("user_id");
 
 				UserInfoObj obj = new UserInfoObj();
 				obj.setEmail(email);
@@ -119,7 +119,7 @@ public class UserInfoDao {
 			resultSet.close();
 			statement.close();
 
-		} catch (SQLException ex) {
+		} catch (SQLException | ClassNotFoundException ex) {
 			Logger.getLogger(ConnJdbc.class.getName()).log(Level.SEVERE, null, ex);
 		}
 

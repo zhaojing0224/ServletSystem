@@ -20,7 +20,14 @@
 					<th>ユーザID</th>
 				</tr>
 			</thead>
-
+			<tbody>
+				<c:forEach var="user" items="${userInfoList}">
+					<tr>
+					<td>${user.email}</td>
+					<td>${user.userId}</td>
+				</tr>
+			 </c:forEach>
+		</tbody>
 		</table>
 	</form>
 </body>

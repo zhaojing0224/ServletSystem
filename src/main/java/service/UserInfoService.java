@@ -20,6 +20,7 @@ public class UserInfoService {
 		UserInfoDao userInfoDao = new UserInfoDao();
 		List<UserInfoObj> userInfoObjList = userInfoDao.getUserInfoList();
 		return userInfoObjList;
+		
 	}
 
 }

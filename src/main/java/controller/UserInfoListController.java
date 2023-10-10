@@ -36,14 +36,14 @@ public class UserInfoListController extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setCharacterEncoding("UTF-8");
 		
-
 		UserInfoService userInfoService = new UserInfoService();
         List<UserInfoObj> userInfoObjList = userInfoService.getUserInfoList();
-
+        
         request.setAttribute("userInfoList", userInfoObjList);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/UserInfoListPage.jsp");
         dispatcher.forward(request, response);
+        
 	}
 
 	/**
