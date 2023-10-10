@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.UserInfoDao;
 import obj.UserInfoObj;
 
 /**
@@ -45,25 +46,34 @@ public class LoginController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+
 		UserInfoObj userInfoObj = new UserInfoObj();
 
 		userInfoObj.setEmail(request.getParameter("email"));
-		userInfoObj.setUserId(request.getParameter("userId"));
-		userInfoObj.setPassword(request.getParameter("password"));
-		userInfoObj.setNameSei(request.getParameter("nameSei"));
-		userInfoObj.setNameMei(request.getParameter("nameMei"));
-		userInfoObj.setNameSeiKata(request.getParameter("nameSeiKata"));
-		userInfoObj.setNameMeiKata(request.getParameter("nameMeiKata"));
 
-		request.setAttribute("userInfoObj", userInfoObj);
+		UserInfoDao userInfoDao = new UserInfoDao();
+		boolean flag = userInfoDao.isEmailExists(userInfoObj.getEmail());
+		if (flag) {
+			request.setAttribute("errroMsg", "他の会員が登録済みのメールアドレスは登録できません。");
 
-		HttpSession session = request.getSession();
-		session.setAttribute("userInfoObj", userInfoObj);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/LoginPage.jsp");
+			dispatcher.forward(request, response);
+		} else {
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/ConfirmationPage.jsp");
-		dispatcher.forward(request, response);
+			userInfoObj.setUserId(request.getParameter("userId"));
+			userInfoObj.setPassword(request.getParameter("password"));
+			userInfoObj.setNameSei(request.getParameter("nameSei"));
+			userInfoObj.setNameMei(request.getParameter("nameMei"));
+			userInfoObj.setNameSeiKata(request.getParameter("nameSeiKata"));
+			userInfoObj.setNameMeiKata(request.getParameter("nameMeiKata"));
 
+			request.setAttribute("userInfoObj", userInfoObj);
+			HttpSession session = request.getSession();
+			session.setAttribute("userInfoObj", userInfoObj);
+
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/ConfirmationPage.jsp");
+			dispatcher.forward(request, response);
+		}
 	}
 
 }

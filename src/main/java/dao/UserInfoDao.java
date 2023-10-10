@@ -2,10 +2,13 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,7 +20,7 @@ public class UserInfoDao {
 	Statement stmt = null;
 	ResultSet rset = null;
 
-	final String jdbcUrl = "jdbc:postgresql://localhost:5432/zhao";
+	final String jdbcUrl = "jdbc:postgresql://localhost:5432/webSys";
 	final String username = "postgres";
 	final String password = "postgres";
 
@@ -31,7 +34,7 @@ public class UserInfoDao {
 
 			StringBuffer sb = new StringBuffer();
 			sb.append(
-					"INSERT INTO kakunin (email, user_id, password, name_sei, name_mei, name_sei_kata, name_mei_kata, deletion_flag, creation_date, update_date) VALUES(");
+					"INSERT INTO userinfo (email, user_id, password, name_sei, name_mei, name_sei_kata, name_mei_kata, del_flag, create_date, update_date) VALUES(");
 
 			sb.append("'" + userInfoObj.getEmail() + "',");
 			sb.append("'" + userInfoObj.getUserId() + "',");
@@ -60,6 +63,67 @@ public class UserInfoDao {
 			Logger.getLogger(ConnJdbc.class.getName()).log(Level.SEVERE, null, ex);
 		}
 
+	}
+
+	public boolean isEmailExists(String email) {
+
+		boolean exists = false;
+		String sql = "SELECT COUNT(*) FROM userinfo WHERE email = ?";
+
+		try {
+			Class.forName("org.postgresql.Driver");
+			Connection connection = DriverManager.getConnection(jdbcUrl, username, password);
+
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, email);
+
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				int count = resultSet.getInt(1);
+				exists = count > 0;
+			}
+
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		return exists;
+	}
+
+	public List<UserInfoObj> getUserInfoList() {
+
+		List<UserInfoObj> list = new ArrayList<UserInfoObj>();
+
+		try {
+			Connection connection = DriverManager.getConnection(jdbcUrl, username, password);
+
+			String sql = "select * from userInfo WHERE Deletion_Flag = '0';";
+
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery(sql);
+
+			// 6. 处理结果集
+			while (resultSet.next()) {
+				String email = resultSet.getString("email");
+				String userId = resultSet.getString("userId");
+				System.out.println(886);
+
+				UserInfoObj obj = new UserInfoObj();
+				obj.setEmail(email);
+				obj.setUserId(userId);
+				list.add(obj);
+
+			}
+
+			// 7. 关闭资源
+			resultSet.close();
+			statement.close();
+
+		} catch (SQLException ex) {
+			Logger.getLogger(ConnJdbc.class.getName()).log(Level.SEVERE, null, ex);
+		}
+
+		return list;
 	}
 
 }

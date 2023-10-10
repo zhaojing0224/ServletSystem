@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 public class ConnJdbc {
 
 	private final String hostName = "localhost:5432";
-	private final String dbName = "zhao";
+	private final String dbName = "webSys";
 	private final String username = "postgres";
 	private final String password = "postgres";
 

@@ -784,8 +784,8 @@ table.address {
 
 	<br>
 
-
-	<form name="Regist1Form" method="post" action="/ServletSystem/LoginController">
+	<form name="Regist1Form" method="post"
+		action="/ServletSystem/LoginController">
 		<input type="hidden" name="service_id" value="top">
 
 
@@ -810,7 +810,7 @@ table.address {
 									<br></td>
 
 
-
+<span style="color:red;"><%=request.getAttribute("errroMsg")%></span>
 
 
 
@@ -885,7 +885,7 @@ table.address {
 
 
 
-
+	
 		<h3 class="circle">お客様の基本情報</h3>
 		<table class="address">
 			<tbody>
@@ -894,10 +894,10 @@ table.address {
 					<td class="end"><em>入力情報に誤りがあると、パスワード再設定が正しく行えない場合があります。
 							ご自身の氏名をお間違えないように登録してください。<br>
 							<ul>
-								<li><span>（姓）</span><input id="sei" class="text-30"
-									type="text" name="sei"></li>
-								<li><span>（名）</span><input id="mei" class="text-30"
-									type="text" name="mei"></li>
+								<li><span>（姓）</span><input id="nameSei" class="text-30"
+									type="text" name="nameSei"></li>
+								<li><span>（名）</span><input id="nameMei" class="text-30"
+									type="text" name="nameMei"></li>
 							</ul> <!--<img class="seierror" src="./images/arrow32.gif" width="32" height="11" alt="">-->
 							<span class="seierrormes"
 							style="color: #ff0000; font-weight: bold;"></span><br> <!--<img class="meierror" src="./images/arrow32.gif" width="32" height="11" alt="">-->
@@ -910,10 +910,10 @@ table.address {
 					<th class="head">氏名（フリガナ）<span class="right">必須</span>
 					<td class="end"><em><全角カタカナのみ> <br>
 							<ul>
-								<li><span>（姓）</span><input id="seiKata" class="text-30"
-									type="text" name="seiKata"></li>
-								<li><span>（名）</span><input id="meiKata" class="text-30"
-									type="text" name="meiKata"></li>
+								<li><span>（姓）</span><input id="nameSeiKata" class="text-30"
+									type="text" name="nameSeiKata"></li>
+								<li><span>（名）</span><input id="nameMeiKata" class="text-30"
+									type="text" name="nameMeiKata"></li>
 							</ul>
 							<!--<img class="seiKataerror" src="./images/arrow32.gif" width="32" height="11" alt="">-->
 							<span class="seiKataerrormes"
@@ -931,8 +931,7 @@ table.address {
 		</p>
 
 		<p class="submit">
-			<input type="submit" value="同意して次へ"
-				onclick="nextFuction()">
+			<input type="submit" value="同意して次へ" onclick="nextFunctionxx()">
 		</p>
 
 
@@ -954,9 +953,8 @@ table.address {
 
 
 	<script>
-		function nextFuctionxx() {
+		function nextFunction() {
 
-			alert(9999);
 			var emailValue = document.getElementById('email').value;
 			var regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 			if (!regexEmail.test(emailValue)) {
@@ -964,16 +962,13 @@ table.address {
 				alert('メールアドレスの形式が正しくありません。');
 
 			}
-			alert(emailValue);
 
-			var userValue = document.getElementById('user').value;
-			var regexUser = /^[a-zA-Z0-9]{6,}$/;
-			if (!regexUser.test(userValue)) {
+			var userIdValue = document.getElementById('userId').value;
+			var regexUserId = /^[a-zA-Z0-9]{6,}$/;
+			if (!regexUserId.test(userIdValue)) {
 
 				alert('ユーザIDは半角英数字で6文字以上入力してください。');
-
 			}
-			alert(userValue);
 
 			var passwordValue = document.getElementById('password')
 					.getElementsByTagName('input')[0].value;
@@ -981,9 +976,8 @@ table.address {
 			if (passwordValue.length < 6) {
 
 				alert('パスワードは6文字以上で入力してください。');
-
 			}
-			alert(passwordValue);
+			
 
 			var seiValue = document.getElementById('sei').value;
 			var meiValue = document.getElementById('mei').value;
@@ -1001,12 +995,8 @@ table.address {
 					&& !regexMeiKata.test(meiKataValue)) {
 
 				alert('文字が全角カタカナで入力されていません。');
-
 			}
-			alert(seiKataValue);
-			alert(meiKataValue);
 
-			alert(6666);
 		}
 	</script>
 

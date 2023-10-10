@@ -8,9 +8,11 @@
 </head>
 <body>
 	<h1>登録完了</h1>
-	
+
 	<form name="Regist1Form" method="post"
-	action="/ServletSystem/CompletionPage" autocomplete="off">
-	
+		action="/ServletSystem/CompletionController" autocomplete="off">
+		<p class="submit">
+			<input type="submit" name="execMethod" value="一覧へ">
+		</p>
 </body>
 </html>

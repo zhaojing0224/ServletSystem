@@ -790,7 +790,7 @@ table.address {
 	UserInfoObj user = (UserInfoObj) request.getAttribute("userInfoObj");
 	%>
 	<form name="Regist1Form" method="post"
-		action="/ServletSystem/ConfirmationPage" autocomplete="off">
+		action="/ServletSystem/ConfirmationController" autocomplete="off">
 		<input type="hidden" name="service_id" value="top">
 
 
