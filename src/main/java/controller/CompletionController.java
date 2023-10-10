@@ -31,8 +31,8 @@ public class CompletionController extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setCharacterEncoding("UTF-8");
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/LoginPage.jsp");
-		dispatcher.forward(request, response);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/CompletionPage.jsp");
+        dispatcher.forward(request, response);
 	}
 
 	/**
