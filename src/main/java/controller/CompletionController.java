@@ -42,7 +42,6 @@ public class CompletionController extends HttpServlet {
 		// TODO Auto-generated method stub
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/CompletionPage.jsp");
 		dispatcher.forward(request, response);
-		System.out.print(000666);
 	}
 
 }

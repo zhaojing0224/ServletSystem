@@ -90,7 +90,42 @@ public class UserInfoDao {
 		return exists;
 	}
 
-	public List<UserInfoObj> getUserInfoList() {
+//	public List<UserInfoObj> getUserInfoList() {
+//
+//		List<UserInfoObj> list = new ArrayList<UserInfoObj>();
+//
+//		try {
+//			Class.forName("org.postgresql.Driver");
+//			Connection connection = DriverManager.getConnection(jdbcUrl, username, password);
+//
+//			String sql = "SELECT * FROM userInfo WHERE del_flag = '0';";
+//
+//			Statement statement = connection.createStatement();
+//			ResultSet resultSet = statement.executeQuery(sql);
+//
+//			while (resultSet.next()) {
+//				String email = resultSet.getString("email");
+//				String userId = resultSet.getString("user_id");
+//
+//				UserInfoObj obj = new UserInfoObj();
+//				obj.setEmail(email);
+//				obj.setUserId(userId);
+//				list.add(obj);
+//
+//			}
+//
+//			// 7. 关闭资源
+//			resultSet.close();
+//			statement.close();
+//
+//		} catch (SQLException | ClassNotFoundException ex) {
+//			Logger.getLogger(ConnJdbc.class.getName()).log(Level.SEVERE, null, ex);
+//		}
+//
+//		return list;
+//	}
+
+	public List<UserInfoObj> getUserInfoByEmail(String emailXyz) {
 
 		List<UserInfoObj> list = new ArrayList<UserInfoObj>();
 
@@ -98,12 +133,20 @@ public class UserInfoDao {
 			Class.forName("org.postgresql.Driver");
 			Connection connection = DriverManager.getConnection(jdbcUrl, username, password);
 
-			String sql = "SELECT * FROM userInfo WHERE del_flag = '0';";
+			//String sql = "SELECT * FROM userinfo WHERE del_flag = '0' and email = '" + emailXyz + "';";
 
+			//Using StringBuffer to construct the SQL query
+			StringBuffer sql = new StringBuffer();
+			sql.append("SELECT * FROM userinfo WHERE del_flag = '0'");
+			if (emailXyz != null && !emailXyz.equals("")) {
+				sql.append(" AND email = '");
+				sql.append(emailXyz + "'");
+			}
+			sql.append(";");
+			System.out.println(sql.toString());
 			Statement statement = connection.createStatement();
-			ResultSet resultSet = statement.executeQuery(sql);
+			ResultSet resultSet = statement.executeQuery(sql.toString());
 
-			// 6. 处理结果集
 			while (resultSet.next()) {
 				String email = resultSet.getString("email");
 				String userId = resultSet.getString("user_id");

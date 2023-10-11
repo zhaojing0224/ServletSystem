@@ -15,10 +15,10 @@ public class UserInfoService {
 		
 	}
 
-	public List<UserInfoObj> getUserInfoList() {
+	public List<UserInfoObj> getUserInfoList(String email) {
 
 		UserInfoDao userInfoDao = new UserInfoDao();
-		List<UserInfoObj> userInfoObjList = userInfoDao.getUserInfoList();
+		List<UserInfoObj> userInfoObjList = userInfoDao.getUserInfoByEmail(email);
 		return userInfoObjList;
 		
 	}

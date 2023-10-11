@@ -1,34 +1,41 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="java.util.List"%>
+<%@ page import="obj.UserInfoObj"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>userInfoList</title>
 </head>
 <body>
-	<form name="Regist1Form" method="post"
-		action="/ServletSystem/UserInfoListController" autocomplete="off">
-		<input type="hidden" name="service_id" value="top">
-		<h2>UserInfo List</h2>
 
-		<table border="1">
-			<thead>
-				<tr>
-					<th>メールアドレス</th>
-					<input id="email" class="text" type="email" name="email">
-					<th>ユーザID</th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach var="user" items="${userInfoList}">
-					<tr>
-					<td>${user.email}</td>
-					<td>${user.userId}</td>
-				</tr>
-			 </c:forEach>
+	<h2>UserInfo List</h2>
+	<table border="1">
+		<thead>
+			<tr>
+				<th>メールアドレス</th>
+				<th>ユーザID</th>
+			</tr>
+		</thead>
+		<form action="/ServletSystem/UserInfoListController" method="post">
+		<input id="email" class="text" type="email" name="email">
+		<input type="submit" name="search" value="検索">
+		</form>
+		<tbody>
+			<%
+			List<UserInfoObj> userInfoList = (List<UserInfoObj>) request.getAttribute("userInfoObj");
+
+			for (UserInfoObj user : userInfoList) {
+			%>
+			<tr>
+				<td><em><%=user.getEmail()%></em></td>
+				<td><em><%=user.getUserId()%></em></td>
+			</tr>
+			<%
+			}
+			%>
 		</tbody>
-		</table>
-	</form>
+	</table>
 </body>
 </html>

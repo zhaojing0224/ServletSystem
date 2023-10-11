@@ -35,15 +35,15 @@ public class UserInfoListController extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.setCharacterEncoding("UTF-8");
-		
-		UserInfoService userInfoService = new UserInfoService();
-        List<UserInfoObj> userInfoObjList = userInfoService.getUserInfoList();
-        
-        request.setAttribute("userInfoList", userInfoObjList);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/UserInfoListPage.jsp");
-        dispatcher.forward(request, response);
-        
+		UserInfoService userInfoService = new UserInfoService();
+		List<UserInfoObj> userInfoObj = userInfoService.getUserInfoList(null);
+
+		request.setAttribute("userInfoObj", userInfoObj);
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/UserInfoListPage.jsp");
+		dispatcher.forward(request, response);
+
 	}
 
 	/**
@@ -51,9 +51,21 @@ public class UserInfoListController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/UserInfoListPage.jsp");
-		dispatcher.forward(request, response);
-	}
+		response.setCharacterEncoding("UTF-8");
+		try {
+			String email = request.getParameter("email");
+			
+			UserInfoService userInfoService = new UserInfoService();
+			List<UserInfoObj> userInfoObj = userInfoService.getUserInfoList(email);
+	        
+	        request.setAttribute("userInfoObj", userInfoObj);
 
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/UserInfoListPage.jsp");
+			dispatcher.forward(request, response);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+	}
 }
