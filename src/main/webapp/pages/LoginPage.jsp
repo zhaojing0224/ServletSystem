@@ -810,7 +810,7 @@ table.address {
 									<br></td>
 
 
-<span style="color:red;"><%=request.getAttribute("errroMsg")%></span>
+							<span style="color: red;"><%=request.getAttribute("errroMsg")%></span>
 
 
 
@@ -847,23 +847,16 @@ table.address {
 							</th>
 						</tr>
 
-
-
 						<span class="iderrormes"
-							style="color: #ff0000; font-weight: bold;"></span>
+							style="color: #ff0000; font-weight: bold;"> <%=request.getAttribute("idErrorMsg")%>
+						</span>
+
+
 						<br>
-
-
-
-
 						<!--<img class="iderror" src="./images/arrow32.gif" width="32" height="11" alt="">//-->
 						<span class="iderrormes"
 							style="color: #ff0000; font-weight: bold;"></span>
 						<br>
-
-
-
-
 						<tr>
 							<th class="head">パスワード<span class="right">必須</span>
 							<td><em><6文字以上半角英数字><br> 「ユーザID」と同じものは登録できません<br>
@@ -875,6 +868,10 @@ table.address {
 							<td class="end"><a href="">詳しいヘルプ</a></td>
 							</th>
 						</tr>
+
+						<span class="passworderrormes"
+							style="color: #ff0000; font-weight: bold;"> <%=request.getAttribute("passwordErrorMsg")%>
+						</span>
 					</tbody>
 				</table>
 			</div>
@@ -885,7 +882,7 @@ table.address {
 
 
 
-	
+
 		<h3 class="circle">お客様の基本情報</h3>
 		<table class="address">
 			<tbody>
@@ -977,7 +974,6 @@ table.address {
 
 				alert('パスワードは6文字以上で入力してください。');
 			}
-			
 
 			var seiValue = document.getElementById('sei').value;
 			var meiValue = document.getElementById('mei').value;

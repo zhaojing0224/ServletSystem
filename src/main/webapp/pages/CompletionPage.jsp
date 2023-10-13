@@ -11,8 +11,11 @@
 
 	<form name="Regist1Form" method="post"
 		action="/ServletSystem/CompletionController" autocomplete="off">
+	</form>
+	<form action="/ServletSystem/UserInfoListController" method="get">
 		<p class="submit">
 			<input type="submit" name="execMethod" value="一覧へ">
 		</p>
+	</form>
 </body>
 </html>

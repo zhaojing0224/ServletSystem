@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.UserInfoDao;
 import obj.UserInfoObj;
+import service.UserInfoService;
 
 /**
  * Servlet implementation class LoginController
@@ -51,9 +51,9 @@ public class LoginController extends HttpServlet {
 
 		userInfoObj.setEmail(request.getParameter("email"));
 
-		UserInfoDao userInfoDao = new UserInfoDao();
-		boolean flag = userInfoDao.isEmailExists(userInfoObj.getEmail());
-		if (flag) {
+		UserInfoService userInfoService = new UserInfoService();
+		boolean emailExists  = userInfoService.isEmailExists(userInfoObj.getEmail());
+		if (emailExists ) {
 			request.setAttribute("errroMsg", "他の会員が登録済みのメールアドレスは登録できません。");
 
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/pages/LoginPage.jsp");
